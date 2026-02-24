@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+  <defs>
+    <filter id="glow" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="12" result="blur1"/>
+      <feComposite in="SourceGraphic" in2="blur1" operator="over"/>
+    </filter>
+  </defs>
+
+  <!-- 다크 배경 -->
+  <rect width="512" height="512" rx="108" ry="108" fill="#0d1117"/>
+  
+  <!-- 글로우 레이어 (중간 강도) -->
+  <line x1="126" y1="126" x2="386" y2="386" stroke="#ccff00" stroke-width="110" stroke-linecap="round" opacity="0.15"/>
+  <line x1="386" y1="126" x2="126" y2="386" stroke="#ccff00" stroke-width="110" stroke-linecap="round" opacity="0.15"/>
+
+  <!-- 메인 X -->
+  <line x1="126" y1="126" x2="386" y2="386" stroke="#ccff00" stroke-width="70" stroke-linecap="round" filter="url(#glow)"/>
+  <line x1="386" y1="126" x2="126" y2="386" stroke="#ccff00" stroke-width="70" stroke-linecap="round" filter="url(#glow)"/>
+</svg>

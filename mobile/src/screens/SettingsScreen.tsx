@@ -9,9 +9,10 @@ import {
   TextInput,
   TouchableOpacity,
   StyleSheet,
-  SafeAreaView,
   Alert,
+  ScrollView,
 } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
 import { storage } from '../services/storage';
 import { wsService } from '../services/websocket';
 import { colors, fonts, spacing, borderRadius } from '../styles/theme';
@@ -55,7 +56,7 @@ export const SettingsScreen: React.FC<Props> = ({ onBack }) => {
   };
 
   return (
-    <SafeAreaView style={styles.container}>
+    <SafeAreaView style={styles.container} edges={['top', 'bottom']}>
       <View style={styles.header}>
         <TouchableOpacity onPress={onBack} accessibilityLabel="뒤로" accessibilityRole="button">
           <Text style={styles.backBtn}>← 뒤로</Text>

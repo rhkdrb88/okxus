@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+  <!-- 시안 C: 헥사곤(육각형) 안에 X — 넥서스(연결) 느낌 -->
+  <rect width="512" height="512" rx="108" ry="108" fill="#0d1117"/>
+  
+  <!-- 육각형 -->
+  <polygon points="256,72 424,140 424,372 256,440 88,372 88,140" 
+    fill="none" stroke="#ccff00" stroke-width="24" stroke-linejoin="round"/>
+  
+  <!-- X -->
+  <line x1="180" y1="185" x2="332" y2="327" stroke="#ccff00" stroke-width="36" stroke-linecap="round"/>
+  <line x1="332" y1="185" x2="180" y2="327" stroke="#ccff00" stroke-width="36" stroke-linecap="round"/>
+  
+  <!-- 글로우 -->
+  <polygon points="256,72 424,140 424,372 256,440 88,372 88,140" 
+    fill="none" stroke="#ccff00" stroke-width="45" stroke-linejoin="round" opacity="0.08"/>
+</svg>

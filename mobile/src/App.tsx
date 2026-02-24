@@ -4,6 +4,7 @@
 
 import React, { useState } from 'react';
 import { StatusBar } from 'react-native';
+import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { ChatScreen } from './screens/ChatScreen';
 import { SettingsScreen } from './screens/SettingsScreen';
 import { colors } from './styles/theme';
@@ -14,14 +15,14 @@ const App: React.FC = () => {
   const [screen, setScreen] = useState<Screen>('chat');
 
   return (
-    <>
+    <SafeAreaProvider>
       <StatusBar barStyle="light-content" backgroundColor={colors.surface} />
       {screen === 'chat' ? (
         <ChatScreen onOpenSettings={() => setScreen('settings')} />
       ) : (
         <SettingsScreen onBack={() => setScreen('chat')} />
       )}
-    </>
+    </SafeAreaProvider>
   );
 };
 

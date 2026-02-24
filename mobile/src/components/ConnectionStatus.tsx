@@ -15,7 +15,7 @@ const STATUS_CONFIG: Record<Status, { label: string; color: string }> = {
   connected: { label: '연결됨', color: colors.neonGreen },
   connecting: { label: '연결 중...', color: colors.neonCyan },
   disconnected: { label: '연결 끊김', color: colors.textMuted },
-  reconnecting: { label: '재연결 중...', color: colors.iconYellow },
+  reconnecting: { label: '재연결 중...', color: colors.neonYellow },
   error: { label: '연결 실패', color: colors.neonRed },
 };
 

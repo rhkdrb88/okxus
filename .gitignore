@@ -4,3 +4,9 @@ node_modules/
 dist/
 .pytest_cache/
 .vscode/
+
+# Mobile (Expo/Android)
+mobile/android/
+mobile/.expo/
+mobile/package-lock.json
+*.apk

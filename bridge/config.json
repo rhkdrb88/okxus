@@ -1,7 +1,7 @@
 {
     "host": "0.0.0.0",
     "port": 8765,
-    "auth_token": "change-me-to-a-secure-token",
+    "auth_token": "okxus-2026-secret",
     "ngrok": {
         "enabled": false,
         "authtoken": "",

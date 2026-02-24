@@ -2,24 +2,26 @@
 
 BridgeServer는 WebSocket 서버를 시작하고, 클라이언트 연결을 처리하며,
 인증 검증, 메시지 라우팅, heartbeat 교환을 수행한다.
+
+파일 기반 Kiro 통신: inbox/에 메시지 작성 → Kiro hook이 처리 → outbox/에서 응답 수신
 """
 
 import asyncio
 import json
 import logging
 import time
+import uuid
 
 import websockets
 
 from bridge.auth import Authenticator
-from bridge.automation import KiroAutomation
+from bridge.file_io import cleanup_inbox, ensure_dirs, wait_for_response, write_message
 from bridge.models import (
     BridgeStatus,
     MessageType,
     ResponseType,
     ServerMessage,
 )
-from bridge.monitor import ResponseMonitor
 
 logger = logging.getLogger(__name__)
 
@@ -28,20 +30,18 @@ class BridgeServer:
     """WebSocket 서버 - 모바일 앱과의 통신 담당"""
 
     HEARTBEAT_INTERVAL = 30  # heartbeat 전송 간격 (초)
+    KIRO_RESPONSE_TIMEOUT = 120  # Kiro 응답 대기 시간 (초)
 
     def __init__(
         self,
         authenticator: Authenticator,
-        automation: KiroAutomation | None = None,
-        monitor: ResponseMonitor | None = None,
     ) -> None:
         self._auth = authenticator
-        self._automation = automation or KiroAutomation()
-        self._monitor = monitor or ResponseMonitor()
         self._clients: set[websockets.WebSocketServerProtocol] = set()
         self._authenticated: set[websockets.WebSocketServerProtocol] = set()
         self._start_time: float = 0.0
         self._server: websockets.WebSocketServer | None = None
+        ensure_dirs()
 
     # ------------------------------------------------------------------
     # Public API
@@ -201,7 +201,7 @@ class BridgeServer:
     ) -> None:
         """상태 요청에 BridgeStatus를 반환한다 (Req 5.2)."""
         status = BridgeStatus(
-            kiro_running=self._automation.is_kiro_running(),
+            kiro_running=True,  # 파일 기반 통신에서는 항상 True
             connected_clients=len(self._authenticated),
             uptime=time.time() - self._start_time,
         )
@@ -220,36 +220,53 @@ class BridgeServer:
     async def _handle_message(
         self, websocket: websockets.WebSocketServerProtocol, msg: dict
     ) -> None:
-        """메시지를 Kiro IDE에 전달하고 응답을 반환한다 (Req 2.1, 2.4)."""
+        """메시지를 파일 기반으로 Kiro IDE에 전달하고 응답을 반환한다.
+
+        1. inbox/에 메시지 파일 작성
+        2. Kiro hook이 파일을 감지하여 처리
+        3. outbox/에서 응답 파일 대기 후 클라이언트에 전달
+        """
         content = msg.get("payload", {}).get("content", "")
         if not content:
             await self._send(websocket, ResponseType.ERROR, {"error": "메시지 내용이 비어있습니다"})
             return
 
-        # Kiro IDE에 메시지 전송
-        success = self._automation.send_message(content)
-        if not success:
-            await self._send(websocket, ResponseType.ERROR, {"error": "Kiro IDE에 메시지 전송 실패"})
+        # 고유 메시지 ID 생성
+        message_id = f"msg-{uuid.uuid4().hex[:12]}"
+
+        # inbox에 메시지 작성
+        try:
+            write_message(message_id, content)
+        except OSError as exc:
+            logger.error("메시지 파일 작성 실패: %s", exc)
+            await self._send(websocket, ResponseType.ERROR, {"error": "메시지 파일 작성 실패"})
             return
 
-        # 전송 완료 확인 (Req 2.4)
+        # 전송 완료 확인
         await self._send(websocket, ResponseType.MESSAGE_ACK, {"success": True})
+        logger.info("메시지 전달 완료: %s → inbox", message_id)
+        print(f"[Bridge] 메시지 → inbox: {message_id} ({content[:50]}...)")
 
-        # Kiro 응답 대기 및 전달
+        # Kiro 응답 대기 (outbox에서)
         try:
-            response_text = await self._monitor.wait_for_response()
+            response_text = await wait_for_response(message_id, timeout=self.KIRO_RESPONSE_TIMEOUT)
+            # inbox 파일 정리
+            cleanup_inbox(message_id)
             await self._send(
                 websocket,
                 ResponseType.KIRO_RESPONSE,
                 {"content": response_text},
             )
-        except (TimeoutError, RuntimeError) as exc:
-            error_msg = self._monitor.create_error_message(str(exc))
+            logger.info("Kiro 응답 전달 완료: %s", message_id)
+            print(f"[Bridge] Kiro 응답 → 모바일: {message_id}")
+        except TimeoutError:
+            cleanup_inbox(message_id)
             await self._send(
                 websocket,
-                error_msg.type,
-                error_msg.payload,
+                ResponseType.ERROR,
+                {"error": "Kiro 응답 대기 시간 초과"},
             )
+            logger.warning("Kiro 응답 타임아웃: %s", message_id)
 
     async def _heartbeat_loop(
         self, websocket: websockets.WebSocketServerProtocol

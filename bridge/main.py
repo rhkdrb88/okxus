@@ -16,8 +16,7 @@ import sys
 from pathlib import Path
 
 from bridge.auth import Authenticator
-from bridge.automation import KiroAutomation
-from bridge.monitor import ResponseMonitor
+from bridge.file_io import ensure_dirs
 from bridge.server import BridgeServer
 
 logger = logging.getLogger("bridge")
@@ -123,13 +122,11 @@ async def main() -> None:
             print(f"[Bridge] 인증 설정 오류: {e}")
             sys.exit(1)
 
-    automation = KiroAutomation()
-    monitor = ResponseMonitor()
-    server = BridgeServer(
-        authenticator=auth,
-        automation=automation,
-        monitor=monitor,
-    )
+    # 파일 기반 통신 디렉토리 생성
+    ensure_dirs()
+    print("[Bridge] 파일 기반 통신 모드 (inbox/outbox)")
+
+    server = BridgeServer(authenticator=auth)
 
     # 서버 시작
     await server.start(host, port)

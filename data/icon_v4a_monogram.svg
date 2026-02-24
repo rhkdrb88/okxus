@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+  <!-- 시안 A: OX 모노그램 — O 안에 X가 들어간 형태 -->
+  <rect width="512" height="512" rx="108" ry="108" fill="#0d1117"/>
+  
+  <!-- O (큰 원) -->
+  <circle cx="256" cy="256" r="155" fill="none" stroke="#ccff00" stroke-width="38"/>
+  
+  <!-- X (O 안에) -->
+  <line x1="175" y1="175" x2="337" y2="337" stroke="#ccff00" stroke-width="38" stroke-linecap="round"/>
+  <line x1="337" y1="175" x2="175" y2="337" stroke="#ccff00" stroke-width="38" stroke-linecap="round"/>
+  
+  <!-- 은은한 글로우 -->
+  <circle cx="256" cy="256" r="155" fill="none" stroke="#ccff00" stroke-width="60" opacity="0.1"/>
+</svg>

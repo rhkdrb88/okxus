@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+  <!-- 노란 형광 배경 (둥근 모서리) -->
+  <rect width="512" height="512" rx="80" ry="80" fill="#ccff00"/>
+  
+  <!-- 큰 X (진한 다크) -->
+  <line x1="105" y1="105" x2="407" y2="407" stroke="#1a1a2e" stroke-width="52" stroke-linecap="round"/>
+  <line x1="407" y1="105" x2="105" y2="407" stroke="#1a1a2e" stroke-width="52" stroke-linecap="round"/>
+  
+  <!-- S (북쪽 - 위) -->
+  <text x="256" y="165" text-anchor="middle" font-family="Segoe UI, Roboto, sans-serif" font-weight="700" font-size="105" fill="#1a1a2e">S</text>
+  
+  <!-- U (남쪽 - 아래, 넓게 벌려서 웃는 입) -->
+  <path d="M185,370 Q256,460 327,370" fill="none" stroke="#1a1a2e" stroke-width="22" stroke-linecap="round"/>
+  
+  <!-- O (서쪽 - 왼쪽 눈) -->
+  <text x="120" y="300" text-anchor="middle" font-family="Segoe UI, Roboto, sans-serif" font-weight="700" font-size="105" fill="#1a1a2e">O</text>
+  
+  <!-- K (동쪽 - 오른쪽 눈, 찡긋) -->
+  <text x="392" y="300" text-anchor="middle" font-family="Segoe UI, Roboto, sans-serif" font-weight="700" font-size="105" fill="#1a1a2e">K</text>
+</svg>

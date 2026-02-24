@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+  <!-- 시안 B: 코드 브라켓 스타일 — <X/> 느낌 -->
+  <rect width="512" height="512" rx="108" ry="108" fill="#0d1117"/>
+  
+  <!-- 왼쪽 꺾쇠 < -->
+  <polyline points="155,170 95,256 155,342" fill="none" stroke="#ccff00" stroke-width="30" stroke-linecap="round" stroke-linejoin="round" opacity="0.5"/>
+  
+  <!-- 오른쪽 꺾쇠 > -->
+  <polyline points="357,170 417,256 357,342" fill="none" stroke="#ccff00" stroke-width="30" stroke-linecap="round" stroke-linejoin="round" opacity="0.5"/>
+  
+  <!-- 가운데 X (메인) -->
+  <line x1="195" y1="180" x2="317" y2="332" stroke="#ccff00" stroke-width="42" stroke-linecap="round"/>
+  <line x1="317" y1="180" x2="195" y2="332" stroke="#ccff00" stroke-width="42" stroke-linecap="round"/>
+</svg>

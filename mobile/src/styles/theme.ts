@@ -18,8 +18,8 @@ export const colors = {
   neonPink: '#ff6ec7',
   /** 경고/오류 - 네온 레드 */
   neonRed: '#ff3131',
-  /** 앱 아이콘 배경 - 노란색 */
-  iconYellow: '#ffd700',
+  /** 앱 아이콘/타이틀 - 노란 형광 */
+  neonYellow: '#ccff00',
 
   /** 텍스트 */
   textPrimary: '#e6edf3',

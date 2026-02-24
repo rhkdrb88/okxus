@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+  <!-- 다크 배경 -->
+  <rect width="512" height="512" rx="108" ry="108" fill="#0d1117"/>
+  
+  <!-- OKXUS 글자, 세로만 1.35배 늘림, 정중앙 -->
+  <g transform="translate(256, 256) scale(1, 1.35) translate(-256, -256)">
+    <text x="256" y="300" text-anchor="middle" 
+      font-family="Segoe UI, Roboto, Helvetica, sans-serif" 
+      font-weight="900" font-size="130" 
+      letter-spacing="-9" fill="#ccff00">
+      OKXUS
+    </text>
+  </g>
+</svg>
