@@ -14,6 +14,9 @@
 okxus/
 ├── bridge/              # Python Bridge 서버
 │   ├── __init__.py
+│   ├── __main__.py      # python -m bridge 엔트리포인트
+│   ├── main.py          # 메인 엔트리포인트 (서버 시작, config 로드, ngrok)
+│   ├── config.json      # 설정 파일 (포트, 토큰, ngrok)
 │   ├── models.py        # 데이터 모델 (MessageType, ResponseType, etc.)
 │   ├── auth.py          # 토큰 인증 모듈
 │   ├── automation.py    # pyautogui Kiro IDE 자동화
@@ -23,13 +26,28 @@ okxus/
 │   ├── test_auth.py     # 인증 테스트
 │   ├── test_automation.py # 자동화 테스트
 │   ├── test_monitor.py  # 모니터 테스트
-│   └── test_server.py   # 서버 테스트
+│   ├── test_server.py   # 서버 테스트
+│   └── test_main.py     # 메인 테스트
 ├── mobile/              # React Native 모바일 앱
 │   ├── package.json
 │   ├── tsconfig.json
-│   └── src/types/       # TypeScript 타입 정의
-│       ├── index.ts     # Message, ConnectionStatus, AppConfig, ChatSession
-│       └── message.ts   # ClientMessage, ServerMessage, BridgeStatus, ErrorCode
+│   └── src/
+│       ├── App.tsx              # 앱 엔트리포인트
+│       ├── styles/theme.ts      # 테마 (블랙+네온)
+│       ├── types/               # TypeScript 타입 정의
+│       │   ├── index.ts
+│       │   └── message.ts
+│       ├── services/            # 서비스 레이어
+│       │   ├── websocket.ts     # WebSocket 클라이언트
+│       │   └── storage.ts       # AsyncStorage 저장소
+│       ├── screens/             # 화면
+│       │   ├── ChatScreen.tsx   # 대화 화면
+│       │   └── SettingsScreen.tsx # 설정 화면
+│       └── components/          # UI 컴포넌트
+│           ├── MessageBubble.tsx
+│           ├── InputBar.tsx
+│           ├── ConnectionStatus.tsx
+│           └── LoadingIndicator.tsx
 └── .kiro/specs/okxus/   # 스펙 문서
     ├── requirements.md
     ├── design.md

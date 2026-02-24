@@ -2,7 +2,7 @@
 
 ## 마지막 업데이트: 2026-02-24
 
-## 현재 상태: Bridge 핵심 모듈 구현 완료, Mobile App 타입 정의 완료
+## 현재 상태: Bridge 전체 완료, Mobile App UI/서비스 구현 완료
 
 ---
 
@@ -51,22 +51,72 @@
   - 연결 상태 콘솔 로그
   - 10개 단위 테스트 통과 (test_server.py)
 
+### Task 6: Bridge 메인 엔트리포인트 ✅
+- **6.1 `bridge/main.py`** ✅
+  - 서버 시작 로직, config.json 로드, 모듈 초기화
+  - ngrok 터널 연동 지원 (ngrok Python SDK)
+  - 시그널 핸들링으로 graceful shutdown
+  - `bridge/config.json` 기본 설정 파일 생성
+  - `bridge/__main__.py` 추가 (`python -m bridge` 실행 지원)
+  - 7개 단위 테스트 통과 (test_main.py)
+
+### Task 7: Checkpoint - Bridge 모듈 검증 ✅
+- 전체 47개 테스트 통과 확인 (test_auth 8 + test_automation 10 + test_monitor 13 + test_server 10 + test_main 7 = 48... 실제 47)
+
+### Task 8: Mobile App 테마 및 공통 스타일 ✅
+- **8.1 앱 테마 및 폰트 설정** ✅
+  - `src/styles/theme.ts` - 블랙 배경(#0d1117), 네온 그린/시안/핑크, JetBrains Mono 폰트
+- **8.2 앱 아이콘** - 이미지 에셋 별도 작업 필요
+
+### Task 9: Mobile App WebSocket 서비스 ✅
+- **9.1 `src/services/websocket.ts`** ✅
+  - WebSocketService 클래스: connect, disconnect, sendMessage, onMessage, onStatusChange
+  - 인증 토큰 전송, heartbeat 교환
+- **9.2 자동 재연결 로직** ✅
+  - 연결 끊김 시 자동 재연결 (최대 3회), 상태 전이 관리
+
+### Task 10: Mobile App 저장소 서비스 ✅
+- **10.1 `src/services/storage.ts`** ✅
+  - AsyncStorage 기반 토큰, URL, 대화 기록, 설정 저장/로드
+
+### Task 11: Mobile App 대화 UI ✅
+- **11.1 `src/components/MessageBubble.tsx`** ✅
+  - 사용자(네온 핑크) / Kiro(네온 그린) 메시지 버블
+- **11.3 `src/screens/ChatScreen.tsx`** ✅
+  - 블랙 배경 메인 화면, FlatList 메시지 목록, 자동 스크롤, 로딩 인디케이터, 승인 버튼
+- **11.6 `src/components/InputBar.tsx`** ✅
+  - 하단 고정 입력창 + 네온 시안 전송 버튼
+- **11.7 `src/components/ConnectionStatus.tsx`** ✅
+  - 연결 상태 표시 (connected/connecting/disconnected/reconnecting/error)
+- `src/components/LoadingIndicator.tsx` ✅ - Kiro 응답 대기 애니메이션
+
+### Task 13: Mobile App 설정 화면 및 네비게이션 ✅
+- **13.1 `src/screens/SettingsScreen.tsx`** ✅
+  - Bridge URL, 인증 토큰 입력/저장, 연결 테스트
+- **13.2 `src/App.tsx`** ✅
+  - 대화 화면 ↔ 설정 화면 네비게이션, 앱 시작 시 자동 연결
+
 ---
 
-## 다음 진행할 태스크 (순서대로)
+## 다음 진행할 태스크
 
-### Task 6: Bridge 메인 엔트리포인트
-- **6.1 `bridge/main.py`** - 서버 시작 로직, config.json 로드, ngrok 연동
+### Task 12: Checkpoint - Mobile App UI 검증
+- 전체 Mobile App 테스트 실행 확인
 
-### Task 7: Checkpoint - Bridge 모듈 검증
-- 전체 Bridge 테스트 실행 확인
+### Task 14: 전체 통합 및 연결
+- **14.1** Mobile App과 Bridge 통합 연결 (전체 파이프라인)
+- **14.2** 통합 테스트 작성
 
-### Task 8: Mobile App 테마 및 공통 스타일
-- **8.1** 앱 테마 (블랙 배경, 네온 컬러, JetBrains Mono)
-- **8.2** 앱 아이콘 (노란색 배경, 중앙 X, OKUS 동서남북)
+### Task 15: Final checkpoint - 전체 시스템 검증
 
-### Task 9~15: Mobile App 구현 및 통합
-- WebSocket 서비스, 저장소, 대화 UI, 설정 화면, 통합 연결
+### 미완료 Optional 태스크
+- Task 2.2* Property 2 속성 테스트
+- Task 3.2* Property 1 속성 테스트
+- Task 4.2* Property 9 속성 테스트
+- Task 5.2~5.4* Property 5, 10, 8 테스트
+- Task 8.2 앱 아이콘 에셋 생성 (이미지 작업 필요)
+- Task 9.3* Property 6 단위 테스트
+- Task 11.2*, 11.4*, 11.5* Property 4, 3, 7 속성 테스트
 
 ---
 

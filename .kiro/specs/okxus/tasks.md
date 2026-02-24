@@ -78,33 +78,33 @@ OKXUS 시스템을 Bridge(Python)와 Mobile App(React Native/TypeScript) 두 파
     - pytest를 사용하여 Kiro IDE 미실행 시 `kiro_running: false` 반환 검증
     - **Validates: Requirements 5.4**
 
-- [ ] 6. Bridge 메인 엔트리포인트 및 설정
-  - [~] 6.1 `bridge/main.py` 구현
+- [x] 6. Bridge 메인 엔트리포인트 및 설정
+  - [x] 6.1 `bridge/main.py` 구현
     - 서버 시작 로직, 설정 로드, 모듈 연결
     - `bridge/config.json` 기본 설정 파일 생성 (포트, 토큰, ngrok 설정)
     - ngrok 터널 연동 지원 (외부 접근)
     - _Requirements: 5.1, 7.1, 7.3_
 
-- [ ] 7. Checkpoint - Bridge 모듈 검증
-  - Ensure all tests pass, ask the user if questions arise.
+- [x] 7. Checkpoint - Bridge 모듈 검증
+  - 47개 전체 테스트 통과 확인 완료
 
-- [ ] 8. Mobile App 테마 및 공통 스타일 설정
-  - [~] 8.1 앱 테마 및 폰트 설정
+- [x] 8. Mobile App 테마 및 공통 스타일 설정
+  - [x] 8.1 앱 테마 및 폰트 설정
     - `src/styles/theme.ts` 생성
     - Kiro IDE 스타일 정의: 블랙 배경(#0d1117), 네온 그린(#39ff14), 네온 시안(#00ffff), 네온 핑크(#ff6ec7)
     - JetBrains Mono 폰트 설정
     - _Requirements: 추가요구사항 1, 4_
   - [~] 8.2 앱 아이콘 생성
-    - 노란색 배경에 중앙 X, 동서남북에 O/K/U/S 글자 배치 아이콘 에셋 생성
+    - 노란색 배경에 중앙 X, 동서남북에 O/K/U/S 글자 배치 아이콘 에셋 생성 (이미지 에셋은 별도 작업 필요)
     - _Requirements: 추가요구사항 3_
 
-- [ ] 9. Mobile App WebSocket 서비스 구현
-  - [~] 9.1 `src/services/websocket.ts` 구현
+- [x] 9. Mobile App WebSocket 서비스 구현
+  - [x] 9.1 `src/services/websocket.ts` 구현
     - `WebSocketService` 구현: `connect`, `disconnect`, `sendMessage`, `onMessage`, `onStatusChange`
     - 인증 토큰 전송 로직
     - heartbeat 교환 로직
     - _Requirements: 1.1, 6.4_
-  - [~] 9.2 자동 재연결 로직 구현
+  - [x] 9.2 자동 재연결 로직 구현
     - 연결 끊김 시 자동 재연결 (최대 3회)
     - 3회 실패 시 사용자에게 연결 실패 알림
     - 연결 상태 전이: disconnected → reconnecting → connected/error
@@ -114,14 +114,14 @@ OKXUS 시스템을 Bridge(Python)와 Mobile App(React Native/TypeScript) 두 파
     - jest를 사용하여 연결 끊김 시 상태가 'disconnected'에서 'reconnecting'으로 전이되는지 검증
     - **Validates: Requirements 1.3**
 
-- [ ] 10. Mobile App 저장소 서비스 구현
-  - [~] 10.1 `src/services/storage.ts` 구현
+- [x] 10. Mobile App 저장소 서비스 구현
+  - [x] 10.1 `src/services/storage.ts` 구현
     - AsyncStorage를 사용한 토큰, URL, 대화 기록, 설정 저장/로드
     - 스토리지 키 상수 정의 (`@okxus/auth_token`, `@okxus/bridge_url`, `@okxus/chat_history`, `@okxus/settings`)
     - _Requirements: 6.4_
 
-- [ ] 11. Mobile App 대화 UI 구현
-  - [~] 11.1 `src/components/MessageBubble.tsx` 구현
+- [x] 11. Mobile App 대화 UI 구현
+  - [x] 11.1 `src/components/MessageBubble.tsx` 구현
     - 사용자 메시지: 네온 핑크(#ff6ec7) 스타일
     - Kiro 응답: 네온 그린(#39ff14) 스타일
     - JetBrains Mono 폰트 적용
@@ -130,7 +130,7 @@ OKXUS 시스템을 Bridge(Python)와 Mobile App(React Native/TypeScript) 두 파
     - **Property 4: 메시지 sender 구분 렌더링**
     - fast-check를 사용하여 sender가 'user'이면 네온 핑크, 'kiro'이면 네온 그린 스타일 적용 검증
     - **Validates: Requirements 4.1**
-  - [~] 11.3 `src/components/ChatScreen.tsx` 구현
+  - [x] 11.3 `src/components/ChatScreen.tsx` 구현
     - 블랙 배경(#0d1117) 메인 화면
     - 메시지 목록 FlatList (시간순 정렬, 스크롤 가능)
     - 새 메시지 도착 시 자동 스크롤
@@ -145,24 +145,24 @@ OKXUS 시스템을 Bridge(Python)와 Mobile App(React Native/TypeScript) 두 파
     - **Property 7: 로딩 상태 인디케이터 표시**
     - fast-check를 사용하여 `isKiroResponding`이 true일 때 로딩 인디케이터가 표시되는지 검증
     - **Validates: Requirements 4.4**
-  - [~] 11.6 `src/components/InputBar.tsx` 구현
+  - [x] 11.6 `src/components/InputBar.tsx` 구현
     - 하단 고정 입력창 + 전송 버튼
     - 네온 시안(#00ffff) 전송 버튼 스타일
     - _Requirements: 4.5_
-  - [~] 11.7 `src/components/ConnectionStatus.tsx` 구현
+  - [x] 11.7 `src/components/ConnectionStatus.tsx` 구현
     - 연결 상태 표시 컴포넌트 (connected/connecting/disconnected/error)
     - _Requirements: 5.3_
 
 - [ ] 12. Checkpoint - Mobile App UI 검증
   - Ensure all tests pass, ask the user if questions arise.
 
-- [ ] 13. Mobile App 설정 화면 및 네비게이션
-  - [~] 13.1 설정 화면 구현
+- [x] 13. Mobile App 설정 화면 및 네비게이션
+  - [x] 13.1 설정 화면 구현
     - Bridge URL 입력
     - 인증 토큰 입력 및 저장
     - 외부 URL(ngrok) 설정
     - _Requirements: 6.4, 7.2_
-  - [~] 13.2 앱 네비게이션 설정
+  - [x] 13.2 앱 네비게이션 설정
     - 대화 화면 ↔ 설정 화면 네비게이션
     - 앱 시작 시 저장된 설정 로드 및 자동 연결
     - _Requirements: 7.2_

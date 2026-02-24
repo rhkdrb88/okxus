@@ -1,0 +1,11 @@
+{
+    "host": "0.0.0.0",
+    "port": 8765,
+    "auth_token": "change-me-to-a-secure-token",
+    "ngrok": {
+        "enabled": false,
+        "authtoken": "",
+        "region": "ap"
+    },
+    "log_level": "INFO"
+}
