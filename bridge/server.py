@@ -30,7 +30,7 @@ class BridgeServer:
     """WebSocket 서버 - 모바일 앱과의 통신 담당"""
 
     HEARTBEAT_INTERVAL = 30  # heartbeat 전송 간격 (초)
-    KIRO_RESPONSE_TIMEOUT = 120  # Kiro 응답 대기 시간 (초)
+    KIRO_RESPONSE_TIMEOUT = 300  # Kiro 응답 대기 시간 (초)
 
     def __init__(
         self,
